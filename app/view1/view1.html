@@ -1,0 +1,110 @@
+<div class="container-app-list">
+  <div class="navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="#">To Do</a>
+      <button type="button" class="btn btn-outline-success" ng-click="View1Ctrl.openToModal('registro', null)" data-toggle="modal" data-target="#exampleModal">Crear Empleado</button>
+    </nav>
+  </div>
+  <div class="container mt-5">
+    <h4 class="text-center mb-3"> Empleados </h4>
+    <div class="column">
+      <div ng-if="View1Ctrl.empleados.length > 0">
+        <div class="row d-flex justify-content-center" ng-repeat="empleado in View1Ctrl.empleados">
+          <div class="col-sm-6 mt-2 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title"> {{ empleado.nombre }} </h5>
+                <p class="card-text"> {{ empleado.nombre }} {{ empleado.apellido }} </p>
+                <p class="card-text">Edad: {{ empleado.edad }} </p>
+                <p class="card-text">Genero: {{ empleado.genero }} </p>
+                <p class="card-text">Fecha Nacimiento: {{ empleado.fechaNacimiento | date }} </p>
+                <div class="d-flex justify-content-around">
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    ng-click="View1Ctrl.openToModal('editar', empleado)"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    ng-click="View1Ctrl.openToModalDelete(empleado)"
+                    type="button"
+                    class="btn btn-outline-danger"
+                  >
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="View1Ctrl.empleados.length <= 0" class="mt-5">
+        <p class="align-item-center fs-16 text-center"> No tienes empleados registrados </p>
+        <p class="align-item-center fs-16 text-center"> ¡Registralos Ahora! </p>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-empleado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"> {{ View1Ctrl.title }} </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Nombre</label>
+              <input required ng-model="View1Ctrl.empleadoCreate.nombre" type="text" class="form-control" placeholder="Nombre" id="name-empleado">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Apellido</label>
+              <input required ng-model="View1Ctrl.empleadoCreate.apellido" type="text" class="form-control" id="apellido-empleado" placeholder="Apellido">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Edad</label>
+              <input required type="number" class="form-control" ng-model="View1Ctrl.empleadoCreate.edad" id="edad-empleado" placeholder="Edad">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Genero</label>
+              <select ng-model="View1Ctrl.empleadoCreate.genero" class="custom-select" id="inputGroupSelect01">
+                <option selected value="Masculino">Masculino</option>
+                <option value="Fememino">Fememino</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Fecha Nacimiento</label>
+              <input required type="date" class="form-control" id="empleado-fecha" ng-model="View1Ctrl.empleadoCreate.fechaNacimiento" placeholder="yyyy-MM-dd">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+          <button ng-click="View1Ctrl.actionEmpleado()" type="button" class="btn btn-outline-success"> {{ View1Ctrl.titleAction }} </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" tabindex="-1" id="modal-delete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminar Empleado</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p class="fs-16"> ¿ Desea eliminar el empleado <span class="font-weight-bold"> {{ View1Ctrl.empleadoDelete.nombre }} </span> ? </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+          <button ng-click="View1Ctrl.deleteEmpleadoModal()" type="button" class="btn btn-outline-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
